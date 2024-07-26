@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Data Display</title>
+</head>
+<body>
+    <h1>Python Data Display</h1>
+    <button id="fetchData">Fetch Data from Python Script</button>
+    <div id="responseData"></div>
+
+    <script>
+        document.getElementById('fetchData').addEventListener('click', async () => {
+            try {
+                const response = await fetch('http://localhost:3000/data');
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const data = await response.json();
+                document.getElementById('responseData').innerText = JSON.stringify(data, null, 2);
+            } catch (error) {
+                console.error('Fetch error:', error);
+                document.getElementById('responseData').innerText = 'Error fetching data: ' + error.message;
+            }
+        });
+    </script>
+</body>
+</html>
